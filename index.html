@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Responsive personal portfolio of Anup Joshi - Mobile App Developer & UI/UX Designer">
+<title>Anup Joshi Portfolio</title>
+
+<style>
+/* =====================
+   RESET & BASE
+===================== */
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  line-height: 1.6;
+  background: #f8f4fc; /* light lavender */
+  color: #1c1c1e;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* =====================
+   VARIABLES
+===================== */
+:root {
+  --primary: #c084fc;       /* lavender */
+  --primary-dark: #9333ea;  /* dark lavender */
+  --secondary: #0f172a;
+  --accent: #f8f4fc;
+  --text-dark: #0f172a;
+  --text-light: #5b4b8a;
+  --card-bg: #f3eefc;
+  --btn-gradient: linear-gradient(135deg,var(--primary),var(--primary-dark));
+}
+
+/* =====================
+   HEADER
+===================== */
+header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background: rgba(248,244,252,0.85);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  z-index: 100;
+}
+header .logo { font-size: 1.6rem; font-weight: 700; color: var(--secondary); }
+header .logo span { color: var(--primary); }
+nav ul { list-style: none; display: flex; gap: 2rem; }
+nav a {
+  text-decoration: none;
+  color: var(--text-dark);
+  font-weight: 500;
+  position: relative;
+}
+nav a::after {
+  content:'';
+  position: absolute;
+  bottom: -3px;
+  left:0;
+  width:0;
+  height:2px;
+  background: var(--primary);
+  transition: width 0.3s;
+}
+nav a:hover::after { width: 100%; }
+
+/* =====================
+   THEME TOGGLE BUTTON
+===================== */
+#theme-toggle {
+  background: transparent; /* fully transparent */
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: inherit; /* matches text color */
+  padding: 0;
+}
+
+/* =====================
+   HERO
+===================== */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 80vh;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content:'';
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  transform: rotate(-25deg);
+  top: -50%;
+  left: -25%;
+  z-index: 0;
+  opacity: 0.15;
+}
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem;
+  z-index: 1;
+}
+.hero-content h1 { font-size: 3rem; color: var(--secondary); margin-bottom: 1rem; }
+.hero-content p { color: var(--text-light); margin-bottom: 2rem; }
+.hero-content .buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn {
+  padding: 0.8rem 2rem;
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.3s, box-shadow 0.3s, background 0.3s, color 0.3s;
+}
+.btn-primary {
+  background: var(--btn-gradient);
+  color: #fff;
+  border: none;
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+.btn-outline {
+  background: var(--accent);
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+.btn-outline:hover {
+  background: var(--primary);
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+/* HERO IMAGE */
+.hero-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-image .circle {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: var(--btn-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 4rem;
+  font-weight: 700;
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* =====================
+   ABOUT
+===================== */
+.about { display: flex; flex-wrap: wrap; justify-content: center; padding: 4rem 2rem; gap: 2rem; }
+.about .card {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 20px;
+  flex: 1 1 400px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  transition: transform 0.3s, box-shadow 0.3s, background 0.3s, color 0.3s;
+}
+.about .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+.about h3 { margin-bottom: 1rem; color: var(--secondary); }
+.skills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.skills span {
+  background: var(--primary);
+  color:#fff;
+  padding:0.5rem 1rem;
+  border-radius:20px;
+  font-size:0.9rem;
+}
+
+/* =====================
+   PROJECTS
+===================== */
+.projects { padding: 4rem 2rem; background: var(--accent); }
+.projects h2 { text-align:center; margin-bottom:2rem; color: var(--secondary); }
+.project-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 2rem; }
+.project-card {
+  background: var(--card-bg);
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  transition: transform 0.3s, box-shadow 0.3s, background 0.3s, color 0.3s;
+}
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
+}
+.project-card h3 { margin-bottom: 1rem; color: var(--secondary); }
+.project-card p { flex:1; color: var(--text-light); }
+
+/* =====================
+   CONTACT
+===================== */
+.contact { padding: 4rem 2rem; }
+.contact h2 { text-align:center; margin-bottom:2rem; color: var(--secondary); }
+.contact-grid { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; }
+.contact-card {
+  background: var(--card-bg);
+  padding:2rem;
+  border-radius:20px;
+  flex:1 1 250px;
+  text-align:center;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  transition: transform 0.3s, box-shadow 0.3s, background 0.3s, color 0.3s;
+}
+.contact-card:hover { transform: translateY(-5px); box-shadow: 0 12px 25px rgba(0,0,0,0.15); }
+.social-links { display:flex; justify-content:center; gap:1.5rem; margin-top:2rem; }
+.social-links a {
+  background: var(--primary);
+  color:#fff;
+  padding:1rem 2rem;
+  border-radius:50px;
+  text-decoration:none;
+  font-weight:600;
+  transition: transform 0.3s, background 0.3s;
+}
+.social-links a:hover { transform: translateY(-3px); }
+
+/* =====================
+   FOOTER
+===================== */
+footer { text-align:center; padding:2rem; background: var(--card-bg); color: var(--text-light); }
+
+/* =====================
+   MEDIA QUERIES
+===================== */
+@media (max-width:900px){
+  .hero { grid-template-columns: 1fr; text-align:center; padding:3rem 1rem; }
+  .hero-content { order:2; align-items:center; }
+  .hero-image { order:1; margin-bottom:2rem; }
+  .about { flex-direction: column; align-items:center; }
+}
+@media (max-width:500px){
+  .hero-content h1 { font-size:2.2rem; }
+  .hero-content p { font-size:1rem; }
+  .btn { font-size:0.9rem; padding:0.6rem 1.5rem; }
+}
+
+/* =====================
+   DARK MODE
+===================== */
+body.dark {
+  --primary: #c084fc;
+  --primary-dark: #9333ea;
+  --secondary: #f8f4fc;
+  --accent: #0f172a;
+  --text-dark: #f8f4fc;
+  --text-light: #c5b3e6;
+  --card-bg: #1e1f29;
+  background: var(--accent);
+  color: var(--text-dark);
+}
+body.dark header { background: rgba(30,30,50,0.85); }
+body.dark .hero-content p { color: var(--text-light); }
+body.dark .skills span { background: var(--primary-dark); }
+body.dark .project-card:hover { color:#fff; }
+body.dark .social-links a { background: var(--primary-dark); }
+body.dark .about .card, body.dark .project-card, body.dark .contact-card, body.dark footer { background: var(--card-bg); color: var(--text-dark); }
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Anup<span>Joshi</span></div>
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <button id="theme-toggle">🌙</button>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-content">
+    <h1>Hi, I'm Anup Joshi</h1>
+    <p>I build innovative mobile applications and UI/UX designs. Passionate about creating meaningful digital experiences and solving real-world problems through code.</p>
+    <div class="buttons">
+      <a href="#contact" class="btn btn-outline">Get In Touch</a>
+      <a href="resume.pdf" class="btn btn-primary" download>Download Resume</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <div class="circle">AJ</div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="card">
+    <h3>About Me</h3>
+    <p>I'm a motivated Computer Engineering student specializing in web development with HTML5, CSS3, and JavaScript. I also excel in designing intuitive user experiences using Figma and building cross-platform mobile apps with Flutter.</p>
+    <p>I enjoy creating clean, efficient code and crafting innovative digital solutions. My goal is to deliver meaningful web and mobile experiences while continuously improving my skills in design and development.</p>
+  </div>
+  <div class="card">
+    <h3>Core Skills</h3>
+    <div class="skills">
+      <span>HTML5 & CSS3</span>
+      <span>Figma & UI/UX Design</span>
+      <span>Django & PHP</span>
+      <span>Flutter & Mobile App Development</span>
+      <span>Web Development & Design</span>
+      <span>Frontend & Backend Development</span>
+    </div>
+  </div>
+</section>
+
+<section class="projects" id="projects">
+  <h2>Featured Projects</h2>
+  <div class="project-grid">
+    <div class="project-card">
+      <h3>AI Mental Health Assistant</h3>
+      <p>AI chatbot using NLP for sentiment detection, helping users track and improve mental health.</p>
+      <a href="https://github.com/ores28/mental-health-chatbot" class="btn btn-primary">View Project</a>
+    </div>
+    <div class="project-card">
+      <h3>Mental Health Chatbot (Flutter)</h3>
+      <p>Flutter mobile chatbot with clean UI to assist users with mental health guidance and tracking.</p>
+      <a href="https://github.com/anupz-0/mental_health_chatbot_flutter" class="btn btn-primary">View Project</a>
+    </div>
+    <div class="project-card">
+      <h3>Wallet Card App Design</h3>
+      <p>Financial dashboard wallet UI designed in Figma for smooth user experience and visual clarity.</p>
+      <a href="https://www.figma.com/design/iAKo0Ga1TbssokeNPVojVD/Wallet" class="btn btn-primary">View Project</a>
+    </div>
+    <div class="project-card">
+      <h3>TalkMate Chatbot UI</h3>
+      <p>Voice + text chatbot UX design, focusing on accessibility and seamless interaction for users.</p>
+      <a href="https://www.figma.com/design/K4xAySWRDPdu8uol9GlKnV/Mental-Health-Chatbot-App" class="btn btn-primary">View Project</a>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <h2>Get In Touch</h2>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <h3>Email</h3>
+      <p><a href="mailto:joshianup806@gmail.com">joshianup806@gmail.com</a></p>
+    </div>
+    <div class="contact-card">
+      <h3>Phone</h3>
+      <p><a href="tel:+9779841090104">+977 9841090104</a></p>
+    </div>
+    <div class="contact-card">
+      <h3>Location</h3>
+      <p>Kirtipur, Kathmandu</p>
+    </div>
+  </div>
+  <div class="social-links">
+    <a href="https://github.com/anupz-0">GitHub</a>
+    <a href="https://www.linkedin.com/in/anup-joshi-2b7357239/">LinkedIn</a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Anup Joshi. All rights reserved.</p>
+</footer>
+
+<script>
+const toggle = document.getElementById("theme-toggle");
+toggle.onclick = () => {
+  document.body.classList.toggle("dark");
+  toggle.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
+};
+</script>
+
+</body>
+</html>
